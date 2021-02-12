@@ -40,7 +40,9 @@ function validateActionBody(req, res, next) {
 }
 
 function validateProjectBody(req, res, next) {
-  if (req.body.text) {
+  const { name, description, completed, actions } = req.body;
+
+  if (!name || !description || !completed) {
     next();
   } else {
     res.status(400).json({ message: "Missing required text field" });
