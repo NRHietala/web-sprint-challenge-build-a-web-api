@@ -1,7 +1,12 @@
-const express = require('express');
+const express = require("express");
+const helmet = require("helmet");
 const server = express();
+server.use(express.json());
 
-// Complete your server here!
-// Do NOT `server.listen()` inside this file!
+server.use(helmet());
+
+server.use("*", (_, res) => {
+  res.status(404).json({ message: "Resource not found" });
+});
 
 module.exports = server;
