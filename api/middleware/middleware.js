@@ -30,10 +30,12 @@ async function validateProjectId(req, res, next) {
 }
 
 function validateActionBody(req, res, next) {
-  if (req.body.name) {
+  const { project_id, description, notes, completed } = req.body;
+
+  if (!project_id || !description || !notes || !completed) {
     next();
   } else {
-    res.status(400).json({ message: "Missing required name field" });
+    res.status(400).json({ message: "Missing required field" });
   }
 }
 
