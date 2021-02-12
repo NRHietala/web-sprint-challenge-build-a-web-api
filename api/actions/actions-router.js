@@ -39,7 +39,7 @@ router.put("/:id", validateActionId, validateActionBody, (req, res, next) => {
 router.delete("/:id", validateActionId, (req, res, next) => {
   Action.remove(req.params.id)
     .then(tablesChanged => {
-      res.status(200).json(tablesChanged);
+      res.status(204).json(tablesChanged);
     })
     .catch(error => {
       next(error);
@@ -48,7 +48,7 @@ router.delete("/:id", validateActionId, (req, res, next) => {
 
 router.use((error, req, res, next) => {
   res.status(500).json({
-    info: "Error occured inside UserRouter",
+    info: "Error occured inside actionsRouter",
     message: error.message,
     stack: error.stack,
   });

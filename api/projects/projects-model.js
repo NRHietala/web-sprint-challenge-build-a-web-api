@@ -1,5 +1,5 @@
 const db = require("../../data/dbConfig.js");
-const mappers = require('../../data/helpers/mappers');
+const mappers = require("../../data/helpers/mappers");
 
 module.exports = {
   get,
@@ -17,7 +17,7 @@ function get(id) {
 
     const promises = [query, getProjectActions(id)]; // [ projects, actions ]
 
-    return Promise.all(promises).then(function(results) {
+    return Promise.all(promises).then(function (results) {
       let [project, actions] = results;
 
       if (project) {
@@ -49,9 +49,7 @@ function update(id, changes) {
 }
 
 function remove(id) {
-  return db("projects")
-    .where("id", id)
-    .del();
+  return db("projects").where("id", id).del();
 }
 
 function getProjectActions(projectId) {
