@@ -3,14 +3,29 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+const {
+  validateProjectId,
+  validateProjectBody,
+} = require("../middleware/middleware");
+
+// put in middleware
+
+router.get("/", (req, res, next) => {
   Project.get()
     .then(post => res.status(200).json(post))
-    .catch(res =>
-      res
-        .status(500)
-        .json({ message: "The posts information could not be retrieved" })
-    );
+    .catch(error => next(error));
+});
+
+router.get("/:id", validateProjectId, (req, res) => {
+  res.status(200).json(req.user);
+});
+
+router.use((error, req, res, next) => {
+  res.status(500).json({
+    info: "Error occured inside UserRouter",
+    message: error.message,
+    stack: error.stack,
+  });
 });
 
 module.exports = router;
